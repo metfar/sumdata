@@ -19,9 +19,15 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #  
-from .catalog import CATALOG, DATASET_ITEMS, DatasetSpec, dataset_names, dataset_spec;
-from .datasets import dataset, data_home;
-from .model import NA, SumVector, SumFactor, SumMatrix, SumDataFrame, SumTimeSeries, SumTable, SumList;
-from .rds import read_rds, save_rds;
-__version__="0.1.0a2";
-readRDS=read_rds; saveRDS=save_rds;
+import argparse;
+from . import __version__, dataset_names;
+
+def main(argv=None):
+    parser=argparse.ArgumentParser(prog="sumdata",description="SUM common data layer.");
+    parser.add_argument("--version",action="version",version="sumData {}".format(__version__));
+    parser.add_argument("--list-r-datasets",action="store_true",help="list the contractual R datasets catalog");
+    args=parser.parse_args(argv);
+    if args.list_r_datasets:
+        for name in dataset_names(display=True): print(name);
+        return 0;
+    parser.print_help(); return 0;

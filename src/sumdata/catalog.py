@@ -37,12 +37,22 @@ def _parse(item):
     return DatasetSpec(item, item, "", item+".csv");
 
 CATALOG = tuple(_parse(item) for item in DATASET_ITEMS);
-BY_NAME = {spec.name.lower():spec for spec in CATALOG};
+BY_EXACT = {spec.name:spec for spec in CATALOG};
+BY_FOLDED = {};
+_AMBIGUOUS = set();
+for spec in CATALOG:
+    key=spec.name.casefold();
+    if key in BY_FOLDED and BY_FOLDED[key].name!=spec.name: _AMBIGUOUS.add(key);
+    else: BY_FOLDED[key]=spec;
+for key in _AMBIGUOUS: BY_FOLDED.pop(key,None);
 
 def dataset_names(display=False):
     return tuple(spec.item if display else spec.name for spec in CATALOG);
 
 def dataset_spec(name):
-    key=str(name).strip().lower();
-    if key not in BY_NAME: raise KeyError("Unknown R dataset: {}".format(name));
-    return BY_NAME[key];
+    text=str(name).strip();
+    if text in BY_EXACT: return BY_EXACT[text];
+    key=text.casefold();
+    if key in _AMBIGUOUS: raise KeyError("Ambiguous R dataset name (case matters): {}".format(name));
+    if key not in BY_FOLDED: raise KeyError("Unknown R dataset: {}".format(name));
+    return BY_FOLDED[key];

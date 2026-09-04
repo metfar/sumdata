@@ -4,16 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sumdata"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "Common data objects, R-compatible dataset catalogue and RDS bridge for SUM."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "GPL-2.0-or-later" }
 authors = [{ name = "William Martinez Bas", email = "metfar@gmail.com" }]
-dependencies = ['sumcore>=0.1.0a1']
+dependencies = ['sumcore>=0.1.0a2']
 classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3"]
 
 [project.scripts]
+sumdata = "sumdata.cli:main"
 sumdata-fetch-r-datasets = "sumdata.fetch:main"
 
 [tool.setuptools]

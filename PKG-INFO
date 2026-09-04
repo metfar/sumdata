@@ -1,3 +1,19 @@
+Metadata-Version: 2.4
+Name: sumdata
+Version: 0.1.0a2
+Summary: Common data objects, R-compatible dataset catalogue and RDS bridge for SUM.
+Author-email: William Martinez Bas <metfar@gmail.com>
+License: GPL-2.0-or-later
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: sumcore>=0.1.0a2
+Provides-Extra: rds
+Requires-Dist: pyreadr>=0.5; extra == "rds"
+Dynamic: license-file
+
 # sumData
 
 Common data layer for the SUM ecosystem. r20 catalogs the 108 objects returned by the agreed `datasets` reference list. The release intentionally does **not** bundle the upstream CSV/RDA payloads.
